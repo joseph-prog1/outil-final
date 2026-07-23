@@ -10,5 +10,5 @@ export function ensureScheduler() {
   g.__charlieScheduler = setInterval(() => {
     processTick().catch((err) => console.error('[scheduler] tick en échec:', err));
   }, TICK_INTERVAL_MS);
-  console.log('[scheduler] démarré — un tick toutes les 5 minutes');
+  console.log('[scheduler] démarré : un tick toutes les 5 minutes');
 }

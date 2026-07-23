@@ -80,7 +80,7 @@ export function renderEmail(contact: ContactRow, step: number, eventId: number |
   const unsubUrl = `${baseUrl}/api/unsubscribe?t=${token}`;
 
   // Version texte : liens bruts + mention de désinscription
-  const text = `${body}\n\n—\nPour ne plus recevoir mes emails : ${unsubUrl}`;
+  const text = `${body}\n\nPour ne plus recevoir mes emails : ${unsubUrl}`;
 
   // Version HTML : paragraphes, liens (traqués si eventId), pixel, pied de désinscription
   const trackLink = (url: string) =>
@@ -106,7 +106,7 @@ export function renderEmail(contact: ContactRow, step: number, eventId: number |
 
   const html = `<div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55;color:#17150F;max-width:620px;">
 ${paragraphs}
-<p style="margin:24px 0 0 0;font-size:12px;color:#6F6A5C;">—<br/>Pour ne plus recevoir mes emails, <a href="${unsubUrl}" style="color:#6F6A5C;">cliquez ici</a>.</p>
+<p style="margin:24px 0 0 0;font-size:12px;color:#6F6A5C;">Pour ne plus recevoir mes emails, <a href="${unsubUrl}" style="color:#6F6A5C;">cliquez ici</a>.</p>
 ${pixel}
 </div>`;
 

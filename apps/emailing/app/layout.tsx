@@ -4,7 +4,7 @@ import { Nav } from '../components/Nav';
 
 export const metadata: Metadata = {
   title: 'Charlie AI Emailing',
-  description: 'Prospection email automatisée — séquences personnalisées et prise de rendez-vous',
+  description: 'Prospection email automatisée : séquences personnalisées et prise de rendez-vous',
 };
 
 export default function RootLayout({
@@ -44,7 +44,7 @@ export default function RootLayout({
         <footer className="bg-forest text-cream/50 py-8 mt-16">
           <div className="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs tracking-caps uppercase">
             <span>Charlie</span>
-            <span>Paris — {new Date().getFullYear()}</span>
+            <span>Paris · {new Date().getFullYear()}</span>
           </div>
         </footer>
       </body>

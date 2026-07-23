@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { STATUS_LABELS, STATUS_COLORS } from '../../lib/labels';
+import ContactDrawer from '../../components/ContactDrawer';
 
 interface Contact {
   id: number;
@@ -18,6 +19,12 @@ interface Contact {
   opens: number;
   clicks: number;
 }
+
+const FILTER_LABELS: Record<string, string> = {
+  contacted: 'Emails envoyés',
+  opened: 'Ont ouvert',
+  clicked: 'Ont cliqué',
+};
 
 const PERSONA_OPTIONS = [
   ['', 'Tous les personas'],
@@ -36,27 +43,46 @@ export default function ContactsPage() {
   const [q, setQ] = useState('');
   const [persona, setPersona] = useState('');
   const [status, setStatus] = useState('');
+  const [filter, setFilter] = useState('');
   const [loading, setLoading] = useState(true);
   const [importing, setImporting] = useState(false);
   const [message, setMessage] = useState('');
   const [localFiles, setLocalFiles] = useState<Array<{ name: string; size: number }>>([]);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  // Identifiant de requête : seule la dernière requête lancée applique son résultat,
+  // pour éviter qu'une réponse plus lente (ex. liste non filtrée) n'écrase la bonne.
+  const reqId = useRef(0);
 
   const load = useCallback(() => {
+    const myId = ++reqId.current;
     setLoading(true);
     const params = new URLSearchParams({ page: String(page) });
     if (q) params.set('q', q);
     if (persona) params.set('persona', persona);
     if (status) params.set('status', status);
+    if (filter) params.set('filter', filter);
     fetch(`/api/contacts?${params}`)
       .then((r) => r.json())
       .then((data) => {
+        if (myId !== reqId.current) return; // réponse obsolète : on l'ignore
         setContacts(data.contacts || []);
         setTotal(data.total || 0);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
-  }, [page, q, persona, status]);
+      .catch(() => {
+        if (myId === reqId.current) setLoading(false);
+      });
+  }, [page, q, persona, status, filter]);
+
+  // Applique les filtres passés en query string depuis le dashboard (au chargement)
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    if (sp.get('status')) setStatus(sp.get('status') || '');
+    if (sp.get('persona')) setPersona(sp.get('persona') || '');
+    if (sp.get('filter')) setFilter(sp.get('filter') || '');
+    if (sp.get('q')) setQ(sp.get('q') || '');
+  }, []);
 
   useEffect(load, [load]);
   useEffect(() => {
@@ -78,7 +104,7 @@ export default function ContactsPage() {
     setMessage(
       data.error
         ? `Erreur : ${data.error}`
-        : `Import terminé — ${data.imported} nouveaux, ${data.updated} mis à jour, ${data.unsubscribed} désinscrits, ${data.invalid} emails invalides.`
+        : `Import terminé : ${data.imported} nouveaux, ${data.updated} mis à jour, ${data.unsubscribed} désinscrits, ${data.invalid} emails invalides.`
     );
     load();
   };
@@ -94,7 +120,7 @@ export default function ContactsPage() {
     setMessage(
       data.error
         ? `Erreur : ${data.error}`
-        : `Import terminé — ${data.imported} nouveaux, ${data.updated} mis à jour, ${data.unsubscribed} désinscrits, ${data.invalid} emails invalides.`
+        : `Import terminé : ${data.imported} nouveaux, ${data.updated} mis à jour, ${data.unsubscribed} désinscrits, ${data.invalid} emails invalides.`
     );
     load();
   };
@@ -145,7 +171,7 @@ export default function ContactsPage() {
         {message && <p className="text-sm text-forest mt-4">{message}</p>}
         <p className="text-xs text-muted mt-3">
           Format attendu : colonnes email, first_name, last_name, job_title, document_slug, is_unsubscribed.
-          L’import est idempotent — ré-importer met simplement à jour.
+          L’import est idempotent : ré-importer met simplement à jour.
         </p>
       </div>
 
@@ -189,6 +215,19 @@ export default function ContactsPage() {
             </option>
           ))}
         </select>
+        {filter && (
+          <button
+            onClick={() => {
+              setFilter('');
+              setPage(1);
+            }}
+            className="flex items-center gap-2 border border-forest bg-forest text-cream px-3 py-2 text-xs uppercase tracking-caps hover:bg-forest-soft transition"
+            title="Retirer ce filtre"
+          >
+            {FILTER_LABELS[filter] || filter}
+            <span className="text-sm leading-none">×</span>
+          </button>
+        )}
         <span className="text-xs uppercase tracking-caps text-muted ml-auto">
           {total} contact{total > 1 ? 's' : ''}
         </span>
@@ -213,12 +252,19 @@ export default function ContactsPage() {
             </thead>
             <tbody>
               {contacts.map((c) => (
-                <tr key={c.id} className="border-b border-line/60 hover:bg-cream/60">
+                <tr
+                  key={c.id}
+                  onClick={() => setSelectedId(c.id)}
+                  className="border-b border-line/60 hover:bg-cream/60 cursor-pointer"
+                >
                   <td className="py-3 px-4">
-                    <div>{c.first_name || c.last_name ? `${c.first_name} ${c.last_name}` : '—'}</div>
+                    <div className="flex items-center gap-2">
+                      <span>{c.first_name || c.last_name ? `${c.first_name} ${c.last_name}` : '-'}</span>
+                      <span className="text-muted text-xs opacity-0 group-hover:opacity-100">›</span>
+                    </div>
                     <div className="text-xs text-muted">{c.email}</div>
                   </td>
-                  <td className="py-3 px-4 text-muted">{c.job_title || '—'}</td>
+                  <td className="py-3 px-4 text-muted">{c.job_title || '-'}</td>
                   <td className="py-3 px-4">{c.persona_label || c.persona}</td>
                   <td className="py-3 px-4">
                     <span
@@ -233,7 +279,7 @@ export default function ContactsPage() {
                     {c.opens} / {c.clicks}
                   </td>
                   <td className="py-3 px-4">
-                    <div className="flex gap-2 text-xs">
+                    <div className="flex gap-2 text-xs" onClick={(e) => e.stopPropagation()}>
                       {(c.status === 'active' || c.status === 'pending') && (
                         <ActionBtn onClick={() => patchContact(c.id, 'pause')}>Pause</ActionBtn>
                       )}
@@ -256,7 +302,7 @@ export default function ContactsPage() {
               {contacts.length === 0 && (
                 <tr>
                   <td colSpan={7} className="py-10 text-center text-muted text-sm">
-                    Aucun contact — importez votre CSV ci-dessus.
+                    Aucun contact : importez votre CSV ci-dessus.
                   </td>
                 </tr>
               )}
@@ -287,6 +333,8 @@ export default function ContactsPage() {
           </button>
         </div>
       )}
+
+      <ContactDrawer contactId={selectedId} onClose={() => setSelectedId(null)} onChanged={load} />
     </div>
   );
 }

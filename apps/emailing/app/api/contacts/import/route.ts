@@ -5,7 +5,7 @@ import { importCsv } from '@/lib/importCsv';
 
 export const dynamic = 'force-dynamic';
 
-// POST : importe un CSV — soit un fichier uploadé (multipart), soit un CSV
+// POST : importe un CSV, soit un fichier uploadé (multipart), soit un CSV
 // présent dans le dossier du projet ({ localFile: "nom.csv" }).
 export async function POST(req: NextRequest) {
   try {

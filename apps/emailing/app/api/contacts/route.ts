@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
   const q = (params.get('q') || '').trim();
   const persona = params.get('persona') || '';
   const status = params.get('status') || '';
+  const filter = params.get('filter') || '';
   const page = Math.max(1, Number(params.get('page') || '1'));
 
   const where: string[] = [];
@@ -27,6 +28,17 @@ export async function GET(req: NextRequest) {
   if (status) {
     where.push('status = ?');
     args.push(status);
+  }
+  // Filtres basés sur l'activité (événements) plutôt que sur le statut :
+  // contacted = a reçu au moins un email, opened = a ouvert, clicked = a cliqué.
+  const EVENT_FILTERS: Record<string, string> = {
+    contacted: 'sent',
+    opened: 'open',
+    clicked: 'click',
+  };
+  if (EVENT_FILTERS[filter]) {
+    where.push('id IN (SELECT contact_id FROM events WHERE type = ?)');
+    args.push(EVENT_FILTERS[filter]);
   }
   const whereSql = where.length ? `WHERE ${where.join(' AND ')}` : '';
 

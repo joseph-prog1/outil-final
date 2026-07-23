@@ -3,7 +3,7 @@ import { getSettings } from './db';
 import { ensureGoogleEmail, googleConnected, googleEmail, sendRawViaGmail } from './google';
 
 // Trois modes d'envoi, par ordre de priorité :
-// 1. Connexion Google (OAuth) — bouton « Connecter mon compte Gmail » dans Réglages
+// 1. Connexion Google (OAuth) : bouton « Connecter mon compte Gmail » dans Réglages
 // 2. Relais SMTP (Brevo, SMTP2GO…)
 // 3. Gmail direct (mot de passe d'application)
 export function getTransport() {
@@ -26,7 +26,7 @@ export function getTransport() {
     });
   }
   throw new Error(
-    'Aucun compte d’envoi configuré — connectez votre compte Google (ou un relais SMTP) dans Réglages.'
+    'Aucun compte d’envoi configuré : connectez votre compte Google (ou un relais SMTP) dans Réglages.'
   );
 }
 
@@ -50,7 +50,7 @@ export async function sendMail(args: SendArgs): Promise<string> {
   let from = getFromEmail();
   if (!from && googleConnected()) from = await ensureGoogleEmail();
   if (!from) {
-    throw new Error('Adresse d’expéditeur manquante — connectez votre compte Google ou renseignez Réglages.');
+    throw new Error('Adresse d’expéditeur manquante : connectez votre compte Google ou renseignez Réglages.');
   }
   const mail = {
     from: `"${s.sender_name || 'Thomas'}" <${from}>`,

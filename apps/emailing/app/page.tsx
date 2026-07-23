@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
@@ -76,10 +77,10 @@ export default function Dashboard() {
     <div className="space-y-10 fade-in">
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
-        <MetricCard label="Contacts" value={stats.totalContacts} />
-        <MetricCard label="Emails envoyés" value={stats.totalSent} />
-        <MetricCard label="Réponses" value={stats.replies} accent="#B7791F" />
-        <MetricCard label="RDV pris" value={stats.rdv} accent="#1A3D2A" />
+        <MetricCard label="Contacts" value={stats.totalContacts} href="/contacts" />
+        <MetricCard label="Emails envoyés" value={stats.totalSent} href="/contacts?filter=contacted" />
+        <MetricCard label="Réponses" value={stats.replies} accent="#B7791F" href="/contacts?status=replied" />
+        <MetricCard label="RDV pris" value={stats.rdv} accent="#1A3D2A" href="/contacts?status=rdv" />
       </div>
 
       {/* Rates */}
@@ -88,7 +89,7 @@ export default function Dashboard() {
         <MetricCard label="Taux de clic" value={pct(stats.clickRate)} size="sm" />
         <MetricCard label="Taux de réponse" value={pct(stats.replyRate)} size="sm" />
         <MetricCard label="Envoyés aujourd'hui" value={stats.sentToday} size="sm" />
-        <MetricCard label="En séquence" value={stats.byStatus.active || 0} size="sm" />
+        <MetricCard label="En séquence" value={stats.byStatus.active || 0} size="sm" href="/contacts?status=active" />
       </div>
 
       {/* Charts */}
@@ -135,12 +136,13 @@ export default function Dashboard() {
         <h3 className="font-serif text-2xl text-ink mb-6">Répartition des statuts</h3>
         <div className="flex flex-wrap gap-3">
           {Object.entries(stats.byStatus).map(([status, n]) => (
-            <span
+            <Link
               key={status}
-              className="border border-line bg-cream px-4 py-2 text-xs uppercase tracking-caps text-forest"
+              href={`/contacts?status=${status}`}
+              className="border border-line bg-cream px-4 py-2 text-xs uppercase tracking-caps text-forest hover:border-forest hover:bg-paper transition"
             >
-              {STATUS_LABELS[status] || status} — <strong>{n}</strong>
-            </span>
+              {STATUS_LABELS[status] || status} : <strong>{n}</strong>
+            </Link>
           ))}
         </div>
       </div>
@@ -170,7 +172,7 @@ export default function Dashboard() {
                     {e.first_name || e.last_name ? `${e.first_name} ${e.last_name}` : e.email}
                   </td>
                   <td className="py-2 pr-4">{EVENT_LABELS[e.type] || e.type}</td>
-                  <td className="py-2 text-muted">{e.step ? `Email ${e.step}` : '—'}</td>
+                  <td className="py-2 text-muted">{e.step ? `Email ${e.step}` : '-'}</td>
                 </tr>
               ))}
             </tbody>
@@ -186,21 +188,34 @@ function MetricCard({
   value,
   accent,
   size,
+  href,
 }: {
   label: string;
   value: number | string;
   accent?: string;
   size?: 'sm';
+  href?: string;
 }) {
-  return (
-    <div className="bg-paper px-6 py-5">
-      <p className="text-xs uppercase tracking-caps text-muted">{label}</p>
+  const inner = (
+    <>
+      <p className="text-xs uppercase tracking-caps text-muted flex items-center gap-1">
+        {label}
+        {href && <span className="text-muted/60">›</span>}
+      </p>
       <p
         className={`font-serif mt-2 ${size === 'sm' ? 'text-3xl' : 'text-5xl'}`}
         style={accent ? { color: accent } : undefined}
       >
         {value}
       </p>
-    </div>
+    </>
   );
+  if (href) {
+    return (
+      <Link href={href} className="bg-paper px-6 py-5 block hover:bg-cream transition">
+        {inner}
+      </Link>
+    );
+  }
+  return <div className="bg-paper px-6 py-5">{inner}</div>;
 }

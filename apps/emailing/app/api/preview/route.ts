@@ -4,7 +4,7 @@ import { renderEmail, type ContactRow } from '@/lib/render';
 
 export const dynamic = 'force-dynamic';
 
-// POST : aperçu d'un email rendu — pour un vrai contact (contactId) ou un exemple (persona)
+// POST : aperçu d'un email rendu, pour un vrai contact (contactId) ou un exemple (persona)
 export async function POST(req: NextRequest) {
   const db = getDb();
   const body = await req.json();

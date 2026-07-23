@@ -108,7 +108,7 @@ const TEMPLATES: Array<{ step: number; name: string; delay_days: number; subject
     subject: 'Votre analyse de fonds en 3 minutes',
     body: `Bonjour {{prenom}},
 
-Vous avez téléchargé un de nos guides sur {{source_theme}} — merci pour votre confiance.
+Vous avez téléchargé un de nos guides sur {{source_theme}}, merci pour votre confiance.
 
 Je me permets de vous présenter Charlie : une IA conçue pour les {{label_pluriel}}, qui {{accroche}}.
 
@@ -159,7 +159,7 @@ Si vous vous posez la même question, le plus simple est d'en parler 20 minutes 
     subject: '',
     body: `Bonjour {{prenom}},
 
-Je clôture mes créneaux de démonstration du mois — il m'en reste quelques-uns.
+Je clôture mes créneaux de démonstration du mois : il m'en reste quelques-uns.
 
 Si Charlie peut vous faire gagner du temps sur {{sujet_court}}, c'est le moment : {{calendly}}
 
@@ -178,7 +178,7 @@ const PERSONAS: Array<Record<string, string>> = [
     accroche: 'analyse et compare les fonds à votre place, avec un argumentaire client prêt à l’emploi',
     cas_usage: 'vous passez un contrat au crible et sortez une proposition d’allocation argumentée en quelques minutes, au lieu d’une demi-journée de comparaisons',
     fonctionnalite: 'Le Screener de Charlie passe des milliers de fonds au crible selon vos critères (performance, frais, volatilité, ESG…) et vous sort une sélection justifiée, prête à présenter au client.',
-    objection: '« Est-ce que je peux faire confiance aux résultats ? » — chaque recommandation est sourcée et justifiée ligne par ligne. Vous gardez la main sur la décision finale, Charlie fait le travail de fond.',
+    objection: '« Est-ce que je peux faire confiance aux résultats ? » Chaque recommandation est sourcée et justifiée ligne par ligne. Vous gardez la main sur la décision finale, Charlie fait le travail de fond.',
     sujet_court: 'la sélection et la justification de vos fonds',
     probleme: 'Comparer des dizaines de fonds, justifier chaque allocation au client, refaire l’exercice à chaque arbitrage : c’est des heures chaque semaine.',
   },
@@ -188,8 +188,8 @@ const PERSONAS: Array<Record<string, string>> = [
     label_pluriel: 'banquiers privés',
     accroche: 'produit des propositions d’investissement personnalisées et argumentées, à l’échelle de votre portefeuille de clients',
     cas_usage: 'pour chaque client, vous générez une proposition d’allocation adaptée à son profil, chiffrée et sourcée, en quelques minutes',
-    fonctionnalite: 'Charlie combine le Screener (sélection de fonds selon vos contraintes maison) et le Reporting (documents client prêts à envoyer) — la personnalisation d’un family office, au rythme d’une banque privée.',
-    objection: '« Est-ce compatible avec nos contraintes de conformité ? » — les critères de sélection sont les vôtres, tout est traçable et justifié, rien n’est envoyé sans votre validation.',
+    fonctionnalite: 'Charlie combine le Screener (sélection de fonds selon vos contraintes maison) et le Reporting (documents client prêts à envoyer) : la personnalisation d’un family office, au rythme d’une banque privée.',
+    objection: '« Est-ce compatible avec nos contraintes de conformité ? » Les critères de sélection sont les vôtres, tout est traçable et justifié, rien n’est envoyé sans votre validation.',
     sujet_court: 'vos propositions d’investissement',
     probleme: 'Personnaliser réellement les propositions pour des dizaines de clients, avec les exigences de conformité d’une banque : les journées n’y suffisent pas.',
   },
@@ -199,8 +199,8 @@ const PERSONAS: Array<Record<string, string>> = [
     label_pluriel: 'family offices',
     accroche: 'consolide l’analyse multi-poches et applique vos exigences (ESG, exclusions, frais) sur l’ensemble des lignes',
     cas_usage: 'vous appliquez une politique d’exclusions ESG sur toutes les poches d’un client et identifiez immédiatement les lignes non conformes, avec les alternatives',
-    fonctionnalite: 'Le Screener de Charlie applique vos filtres d’exclusion (ESG, secteurs, frais) sur des milliers de fonds et documente chaque décision — le niveau d’exigence d’un mandat institutionnel, sans l’armée d’analystes.',
-    objection: '« Nos critères sont trop spécifiques pour un outil » — les critères sont entièrement paramétrables, et c’est justement sur les politiques sur mesure que Charlie fait gagner le plus de temps.',
+    fonctionnalite: 'Le Screener de Charlie applique vos filtres d’exclusion (ESG, secteurs, frais) sur des milliers de fonds et documente chaque décision : le niveau d’exigence d’un mandat institutionnel, sans l’armée d’analystes.',
+    objection: '« Nos critères sont trop spécifiques pour un outil » : ils sont entièrement paramétrables, et c’est justement sur les politiques sur mesure que Charlie fait gagner le plus de temps.',
     sujet_court: 'l’analyse et la conformité de vos allocations',
     probleme: 'Consolider plusieurs poches, appliquer des politiques d’investissement sur mesure et le documenter proprement : un travail d’équipe entière, souvent fait à la main.',
   },
@@ -209,9 +209,9 @@ const PERSONAS: Array<Record<string, string>> = [
     label: 'Gérant / gestionnaire',
     label_pluriel: 'gérants de portefeuille',
     accroche: 'automatise la veille sur vos lignes et la production de vos reportings',
-    cas_usage: 'votre reporting mensuel — performances, mouvements, commentaires de gestion — est généré automatiquement, prêt à relire et envoyer',
-    fonctionnalite: 'Le Reporting de Charlie produit vos documents périodiques à partir de vos portefeuilles : performances, attribution, commentaires — vous relisez, vous envoyez.',
-    objection: '« Un reporting généré, ça se voit » — vous gardez vos modèles et votre ton ; Charlie remplit, vous signez.',
+    cas_usage: 'votre reporting mensuel (performances, mouvements, commentaires de gestion) est généré automatiquement, prêt à relire et envoyer',
+    fonctionnalite: 'Le Reporting de Charlie produit vos documents périodiques à partir de vos portefeuilles (performances, attribution, commentaires) : vous relisez, vous envoyez.',
+    objection: '« Un reporting généré, ça se voit » : vous gardez vos modèles et votre ton ; Charlie remplit, vous signez.',
     sujet_court: 'vos reportings et votre veille',
     probleme: 'La production des reportings et la veille sur les lignes mangent le temps qui devrait aller à la gestion elle-même.',
   },
@@ -222,7 +222,7 @@ const PERSONAS: Array<Record<string, string>> = [
     accroche: 'analyse les supports en unités de compte et justifie vos préconisations, document à l’appui',
     cas_usage: 'vous comparez les UC de plusieurs contrats et sortez une préconisation argumentée et conforme en quelques minutes',
     fonctionnalite: 'Le Screener de Charlie compare les supports disponibles dans vos contrats (performance, frais, SRI, ESG) et produit la justification écrite que la réglementation vous demande.',
-    objection: '« Encore un outil à ajouter à la pile ? » — pas d’intégration lourde : vous partez de vos contrats, Charlie fait l’analyse, vous récupérez le document.',
+    objection: '« Encore un outil à ajouter à la pile ? » Pas d’intégration lourde : vous partez de vos contrats, Charlie fait l’analyse, vous récupérez le document.',
     sujet_court: 'l’analyse de vos supports en UC',
     probleme: 'Justifier chaque préconisation, documenter le devoir de conseil, suivre des centaines de supports : la charge administrative explose.',
   },
@@ -231,9 +231,9 @@ const PERSONAS: Array<Record<string, string>> = [
     label: 'Autre',
     label_pluriel: 'professionnels du patrimoine',
     accroche: 'analyse les fonds et produit des recommandations d’investissement argumentées en quelques minutes',
-    cas_usage: 'vous obtenez une analyse complète d’un fonds ou d’une allocation — performance, frais, risques, ESG — prête à partager',
+    cas_usage: 'vous obtenez une analyse complète d’un fonds ou d’une allocation (performance, frais, risques, ESG), prête à partager',
     fonctionnalite: 'Charlie combine un Screener (sélection de fonds selon vos critères) et un Reporting (documents prêts à envoyer) pour faire en minutes ce qui prend des heures.',
-    objection: '« Est-ce vraiment adapté à mon activité ? » — c’est exactement l’objet d’une démo de 20 minutes : on part de vos cas réels, pas d’un discours commercial.',
+    objection: '« Est-ce vraiment adapté à mon activité ? » C’est exactement l’objet d’une démo de 20 minutes : on part de vos cas réels, pas d’un discours commercial.',
     sujet_court: 'l’analyse de fonds',
     probleme: 'L’analyse de fonds et la production de documents d’investissement restent un travail long, répétitif et difficile à déléguer.',
   },
@@ -261,7 +261,7 @@ function seed(db: DatabaseSync) {
   for (const p of PERSONAS) {
     insertPersona.run(p.key, p.label, p.label_pluriel, p.accroche, p.cas_usage, p.fonctionnalite, p.objection, p.sujet_court);
   }
-  // La colonne probleme est utilisée par l'email 3 — ajoutée après coup si absente
+  // La colonne probleme est utilisée par l'email 3, ajoutée après coup si absente
   try {
     db.exec("ALTER TABLE personas ADD COLUMN probleme TEXT DEFAULT ''");
   } catch {

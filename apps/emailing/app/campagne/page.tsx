@@ -79,7 +79,7 @@ export default function CampagnePage() {
       {/* Alerte configuration */}
       {(!status.gmailConfigured || !status.calendlyConfigured) && (
         <div className="border border-st-stop bg-paper px-6 py-4 text-sm">
-          <span className="text-xs uppercase tracking-caps text-st-stop font-medium">Configuration incomplète — </span>
+          <span className="text-xs uppercase tracking-caps text-st-stop font-medium">Configuration incomplète : </span>
           {!status.gmailConfigured && 'aucun compte d’envoi n’est configuré'}
           {!status.gmailConfigured && !status.calendlyConfigured && ' et '}
           {!status.calendlyConfigured && 'le lien Calendly est manquant'}
@@ -88,7 +88,7 @@ export default function CampagnePage() {
       )}
       {status.gmailConfigured && !status.replyDetection && (
         <div className="border border-line bg-paper px-6 py-4 text-sm text-muted">
-          <span className="text-xs uppercase tracking-caps text-forest font-medium">Détection des réponses inactive — </span>
+          <span className="text-xs uppercase tracking-caps text-forest font-medium">Détection des réponses inactive : </span>
           sans identifiants Gmail IMAP (Réglages, section optionnelle), les séquences ne s’arrêtent pas toutes seules
           quand un prospect répond. Surveillez votre boîte et utilisez le bouton « A répondu » dans l’onglet Contacts.
         </div>
@@ -133,8 +133,8 @@ export default function CampagnePage() {
                 post({ action: 'tick' }, (d) => {
                   const r = d.result;
                   return r.ran
-                    ? `Tick exécuté — ${r.sent} envoyé(s), ${r.errors} erreur(s), ${r.replies} réponse(s) détectée(s).`
-                    : `Rien envoyé : ${r.reason}${r.replies ? ` — ${r.replies} réponse(s) détectée(s)` : ''}.`;
+                    ? `Tick exécuté : ${r.sent} envoyé(s), ${r.errors} erreur(s), ${r.replies} réponse(s) détectée(s).`
+                    : `Rien envoyé : ${r.reason}${r.replies ? ` (${r.replies} réponse(s) détectée(s))` : ''}.`;
                 })
               }
               disabled={busy}
@@ -227,7 +227,7 @@ export default function CampagnePage() {
       <div className="bg-paper border border-line p-6">
         <h3 className="font-serif text-2xl text-ink mb-6">Prochains envois</h3>
         {status.nextDue.length === 0 ? (
-          <p className="text-sm text-muted">Aucun envoi programmé — activez des contacts ci-dessus.</p>
+          <p className="text-sm text-muted">Aucun envoi programmé : activez des contacts ci-dessus.</p>
         ) : (
           <table className="w-full text-sm">
             <thead>
@@ -261,7 +261,7 @@ export default function CampagnePage() {
       <div className="flex flex-wrap gap-3">
         {Object.entries(status.byStatus).map(([s, n]) => (
           <span key={s} className="border border-line bg-paper px-4 py-2 text-xs uppercase tracking-caps text-forest">
-            {STATUS_LABELS[s] || s} — <strong>{n}</strong>
+            {STATUS_LABELS[s] || s} : <strong>{n}</strong>
           </span>
         ))}
       </div>
