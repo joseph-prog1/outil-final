@@ -35,7 +35,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
        WHERE e.contact_id = ?
        ORDER BY e.id ASC`
     )
-    .all(Number(id)) as EventRow[];
+    .all(Number(id)) as unknown as EventRow[];
 
   // Taux calculés par contact : ouverture/clic rapportés au nombre d'emails envoyés
   const sentSteps = new Set(events.filter((e) => e.type === 'sent').map((e) => e.step));

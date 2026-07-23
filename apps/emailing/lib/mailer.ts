@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import path from 'node:path';
 import { getSettings } from './db';
 import { ensureGoogleEmail, googleConnected, googleEmail, sendRawViaGmail } from './google';
 
@@ -60,6 +61,14 @@ export async function sendMail(args: SendArgs): Promise<string> {
     text: args.text,
     html: args.html,
     ...(args.inReplyTo ? { inReplyTo: args.inReplyTo, references: args.inReplyTo } : {}),
+    // Logo Charlie en signature (image incorporée : s'affiche partout, sans dépendre du tunnel)
+    attachments: [
+      {
+        filename: 'charlie-logo.png',
+        path: path.join(process.cwd(), 'public', 'charlie-logo-email.png'),
+        cid: 'charlie-logo',
+      },
+    ],
   };
 
   if (googleConnected()) {

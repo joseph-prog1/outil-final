@@ -17,13 +17,13 @@ export async function POST(req: NextRequest) {
   const persona = String(body.persona || 'cgp');
 
   const db = getDb();
-  let contact = db.prepare('SELECT * FROM contacts WHERE email = ?').get(to) as ContactRow | undefined;
+  let contact = db.prepare('SELECT * FROM contacts WHERE email = ?').get(to) as unknown as ContactRow | undefined;
   if (!contact) {
     db.prepare(
       `INSERT INTO contacts (email, first_name, last_name, job_title, persona, source_slug, status)
        VALUES (?, ?, '', '', ?, 'test', 'paused')`
     ).run(to, String(body.firstName || 'Test'), persona);
-    contact = db.prepare('SELECT * FROM contacts WHERE email = ?').get(to) as ContactRow;
+    contact = db.prepare('SELECT * FROM contacts WHERE email = ?').get(to) as unknown as ContactRow;
   }
 
   const eventResult = db
