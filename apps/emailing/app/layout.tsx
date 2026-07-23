@@ -19,7 +19,10 @@ export default function RootLayout({
         <header className="bg-forest text-cream">
           <div className="max-w-7xl mx-auto px-6 pt-6 pb-12">
             <div className="flex justify-between items-baseline border-b border-cream/15 pb-5">
-              <span className="text-sm font-medium tracking-caps uppercase">Charlie</span>
+              <span className="flex items-center gap-3">
+                <img src="/charlie-logo.webp" alt="Logo Charlie" className="h-6 w-auto invert" />
+                <span className="text-sm font-medium tracking-caps uppercase">Charlie</span>
+              </span>
               <span className="text-xs text-cream/60 tracking-caps uppercase">
                 Prospection email
               </span>
