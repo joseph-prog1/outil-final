@@ -1,0 +1,14 @@
+{
+  "name": "charlie-suite",
+  "version": "1.0.0",
+  "description": "Suite Charlie — Emailing, Scraper LinkedIn et Studio de posts sur un seul site (http://localhost:3005)",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n emailing,scraper,posts -c green,yellow,blue \"npm --prefix apps/emailing run dev\" \"npm --prefix apps/scraper run dev\" \"cd apps/posts/server && node index.js\"",
+    "build:posts": "cd apps/posts/client && npx vite build --base=/posts/",
+    "install-all": "npm install && npm --prefix apps/emailing install && npm --prefix apps/scraper install && npm --prefix apps/posts run install-all && npm run build:posts"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "analyzer",
+  "version": "1.0.0",
+  "description": "LinkedIn Comments Scraper",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev -p 3105",
+    "build": "next build",
+    "start": "next start -p 3105",
+    "lint": "next lint",
+    "test": "node --test 'test/**/*.test.js'",
+    "scrape": "node scripts/background-scraper.js",
+    "scrape:manual": "node scraper-v2.js",
+    "debug": "node debug-scraper.js",
+    "process": "node scripts/process-profiles.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.18.1",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
+    "next": "^15.0.0",
+    "playwright": "^1.50.0",
+    "puppeteer": "^25.3.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.10.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.17",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.0",
+    "typescript": "5.8.2"
+  }
+}

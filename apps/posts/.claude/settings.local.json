@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://github.com/sacharx1/Post-linkedin)",
+      "Bash(gh auth *)"
+    ]
+  }
+}

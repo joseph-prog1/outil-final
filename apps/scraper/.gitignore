@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+package-lock.json
+.pnp
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Sessions & Credentials
+.sessions/
+.temp-cookies-*
+# Jobs de scrape en tâche de fond : statut, logs et cookies temporaires (contiennent la session)
+data/jobs/
+
+# Build & Cache
+.next/
+.nuxt/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Data & Results
+# (résultats de scrape versionnés volontairement — repo privé)
+debug-linkedin.mjs
+page-debug.html
+
+# Suivi personnel des prospects contactés (par utilisateur)
+data/contacted.json
+data/category-overrides.json
+
+# Suivi personnel des profils supprimés (par utilisateur)
+data/hidden-profiles.json
+
+# File d'attente, journal et réglages des relances (état runtime par utilisateur,
+# contient des noms de prospects réels)
+data/relance/
+
+# Fichier d'historique R parasite
+.Rhistory
+
+# Artefact de build TypeScript
+tsconfig.tsbuildinfo

@@ -1,0 +1,27 @@
+{
+  "name": "charlie-emailing",
+  "version": "1.0.0",
+  "description": "Prospection email automatisée Charlie — séquences personnalisées, envoi Gmail, tracking",
+  "scripts": {
+    "dev": "next dev -p 3005",
+    "build": "next build",
+    "start": "next start -p 3005"
+  },
+  "dependencies": {
+    "imapflow": "^1.0.164",
+    "next": "^15.0.0",
+    "nodemailer": "^6.9.16",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/nodemailer": "^6.4.17",
+    "@types/react": "19.2.17",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.0",
+    "typescript": "5.8.2"
+  }
+}

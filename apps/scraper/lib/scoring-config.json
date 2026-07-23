@@ -1,0 +1,98 @@
+{
+  "categories": {
+    "ultra_boss": {
+      "name": "Ultra Boss",
+      "scoreRange": [80, 100],
+      "keywords": ["president", "ceo", "founder", "co-founder", "chairman", "managing partner", "owner", "président associé"],
+      "companySizeMultiplier": {
+        "1-10": 0.8,
+        "10-50": 0.85,
+        "1-50": 0.8,
+        "50-100": 0.85,
+        "100-500": 0.9,
+        "500-1000": 1.0,
+        "1000-5000": 1.0,
+        "5000+": 1.0
+      },
+      "minCompanySizeBonus": "10-50"
+    },
+    "boss": {
+      "name": "Boss",
+      "scoreRange": [60, 79],
+      "keywords": ["ceo", "founder", "president", "directeur général", "dg", "associé", "partner", "managing director", "directeur"],
+      "companySizeMultiplier": {
+        "1-10": 0.7,
+        "10-50": 0.75,
+        "1-50": 0.7,
+        "50-100": 0.8,
+        "100-500": 0.95,
+        "500-1000": 1.0,
+        "1000-5000": 1.0,
+        "5000+": 1.0
+      },
+      "minCompanySizeBonus": "50-500"
+    },
+    "cgp": {
+      "name": "CGP",
+      "scoreRange": [40, 59],
+      "keywords": ["directeur", "head of", "responsable", "manager", "senior manager", "consultant", "conseil", "cabinet"],
+      "companySizeMultiplier": {
+        "1-10": 0.6,
+        "10-50": 0.65,
+        "1-50": 0.6,
+        "50-100": 0.7,
+        "100-500": 0.8,
+        "500-1000": 0.9,
+        "1000-5000": 1.0,
+        "5000+": 1.0
+      },
+      "minCompanySizeBonus": null
+    },
+    "out_of_scope": {
+      "name": "Hors cadre",
+      "scoreRange": [0, 39],
+      "keywords": ["étudiant", "alternant", "stagiaire", "junior", "recherche d'emploi", "freelance"],
+      "companySizeMultiplier": {},
+      "minCompanySizeBonus": null
+    }
+  },
+  "scoring": {
+    "baseScore": 40,
+    "keywordBoosts": {
+      "founder": 20,
+      "ceo": 18,
+      "president": 15,
+      "managing director": 14,
+      "managing partner": 16,
+      "partner": 12,
+      "investor": 15,
+      "vc": 15,
+      "private equity": 15,
+      "chairman": 17,
+      "owner": 16,
+      "directeur": 8,
+      "directeur général": 10,
+      "dg": 10,
+      "head of": 10,
+      "responsable": 5,
+      "manager": 6,
+      "consultant": 4,
+      "étudiant": -30,
+      "alternant": -25,
+      "stagiaire": -20,
+      "junior": -8
+    },
+    "companySizeBoosts": {
+      "5000+": 10,
+      "1000-5000": 8,
+      "500-1000": 6,
+      "100-500": 4,
+      "50-100": 2,
+      "10-50": 1,
+      "1-50": 0,
+      "1-10": 0
+    },
+    "commentCountBoost": 0.5,
+    "maxCommentCountForBoost": 50
+  }
+}
